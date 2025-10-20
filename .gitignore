@@ -41,3 +41,11 @@ app-example
 # generated native folders
 /ios
 /android
+
+# React Native
+node_modules/
+ios/Pods/
+android/.gradle/
+android/app/build/
+.env
+.DS_Store
