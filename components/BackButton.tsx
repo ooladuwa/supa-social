@@ -1,7 +1,6 @@
 import Icon from '@/assets/icons';
 import { theme } from '@/constants/theme';
 import { useRouter } from 'expo-router';
-import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 
 interface BackButtonProps {

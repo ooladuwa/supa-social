@@ -5,9 +5,10 @@ import Input from '@/components/Input';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { theme } from '@/constants/theme';
 import { hp, wp } from '@/helpers/common';
+import { supabase } from '@/lib/supabase';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
 const Signup = () => {
@@ -31,6 +32,26 @@ const Signup = () => {
       );
     }
     // TODO: Implement Happy Path to Login
+
+    let name = nameRef.current.trim();
+    let email = emailRef.current.trim();
+    let password = passwordRef.current.trim();
+
+    setLoading(true);
+
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    });
+    setLoading(false);
+    console.log('session', session);
+    console.log('error', error);
+    if (error) {
+      Alert.alert('Signup Error', error.message);
+    }
   };
 
   return (
