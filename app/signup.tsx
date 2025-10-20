@@ -10,17 +10,18 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useRef, useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
-const Login = () => {
+const Signup = () => {
   const router = useRouter();
   const emailRef = useRef<string>('');
+  const nameRef = useRef<string>('');
   const passwordRef = useRef<string>('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     if (!emailRef.current || !passwordRef.current) {
       return Alert.alert(
-        'Login Error',
-        'Please enter your email and password',
+        'Signup Error',
+        'Please enter a value for all fields',
         [
           {
             text: 'OK',
@@ -40,15 +41,31 @@ const Login = () => {
 
         {/* Welcome Text */}
         <View>
-          <Text style={styles.welcomeText}>Hey,</Text>
-          <Text style={styles.welcomeText}>Welcome Back!</Text>
+          <Text style={styles.welcomeText}>Let&apos;s</Text>
+          <Text style={styles.welcomeText}>Get Started!</Text>
         </View>
 
         {/* Form */}
         <View style={styles.form}>
           <Text style={{ fontSize: hp(1.5), color: theme.colors.text }}>
-            Please login to continue
+            Please enter your details to create an account
           </Text>
+          {/* Username Input */}
+          <Input
+            icon={
+              <Icon
+                name='user'
+                size={26}
+                strokeWidth={1.6}
+              />
+            }
+            onChangeText={(value) => {
+              nameRef.current = value;
+            }}
+            placeholder='Enter your name'
+            autoCapitalize='none'
+            autoCorrect={false}
+          />
           {/* Email Input */}
           <Input
             icon={
@@ -81,18 +98,16 @@ const Login = () => {
             secureTextEntry
             autoCapitalize='none'
           />
-          {/* Forgot Password */}
-          <Text style={styles.forgotPassword}>Forgot Password?</Text>
           {/* Login Button */}
           <Button
-            title={'Login'}
-            onPress={handleLogin}
+            title={'Sign Up'}
+            onPress={handleSignup}
             loading={loading}
           />
           {/* Footer */}
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Don&apos;t have an account?</Text>
-            <Pressable onPress={() => router.push('/signup')}>
+            <Text style={styles.footerText}>Already have an account?</Text>
+            <Pressable onPress={() => router.push('/login')}>
               <Text
                 style={[
                   styles.footerText,
@@ -102,7 +117,7 @@ const Login = () => {
                   },
                 ]}
               >
-                Sign up
+                Login
               </Text>
             </Pressable>
           </View>
@@ -112,7 +127,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {

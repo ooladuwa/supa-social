@@ -2,11 +2,14 @@ import Button from '@/components/Button';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { theme } from '@/constants/theme';
 import { hp, wp } from '@/helpers/common';
+import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
 const Welcome: React.FC = () => {
+  const router = useRouter();
+
   return (
     <ScreenWrapper bgColor='white'>
       <StatusBar style='dark' />
@@ -29,12 +32,12 @@ const Welcome: React.FC = () => {
           <Button
             title='Get Started'
             buttonStyle={{ marginHorizontal: wp(3) }}
-            onPress={() => {}}
+            onPress={() => router.push('/signup')}
           />
         </View>
         <View style={styles.bottomTextContainer}>
           <Text style={styles.loginText}>Already have an account?</Text>
-          <Pressable>
+          <Pressable onPress={() => router.push('/login')}>
             <Text
               style={[
                 styles.loginText,
