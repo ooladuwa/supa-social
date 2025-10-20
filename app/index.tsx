@@ -1,12 +1,19 @@
+import ScreenWrapper from '@/components/ScreenWrapper';
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Button, Text } from 'react-native';
 
-const index = () => {
+const Index: React.FC = () => {
+  const router = useRouter();
   return (
-    <View>
+    <ScreenWrapper>
       <Text>index</Text>
-    </View>
+      <Button
+        title='Go to Welcome'
+        onPress={() => router.push('/welcome')}
+      />
+    </ScreenWrapper>
   );
 };
 
-export default index;
+export default Index;
