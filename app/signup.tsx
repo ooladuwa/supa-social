@@ -31,7 +31,6 @@ const Signup = () => {
         ]
       );
     }
-    // TODO: Implement Happy Path to Login
 
     let name = nameRef.current.trim();
     let email = emailRef.current.trim();
@@ -43,12 +42,15 @@ const Signup = () => {
       data: { session },
       error,
     } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+      email,
+      password,
+      options: {
+        data: {
+          name,
+        },
+      },
     });
     setLoading(false);
-    console.log('session', session);
-    console.log('error', error);
     if (error) {
       Alert.alert('Signup Error', error.message);
     }
