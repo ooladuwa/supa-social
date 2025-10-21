@@ -4,21 +4,20 @@ import ScreenWrapper from '@/components/ScreenWrapper';
 import { theme } from '@/constants/theme';
 import { useAuth } from '@/contexts/AuthContext';
 import { hp, wp } from '@/helpers/common';
-import { supabase } from '@/lib/supabase';
 import { useRouter } from 'expo-router';
-import { Alert, Button, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 const Home = () => {
   const router = useRouter();
   const { user, setAuth } = useAuth();
   console.log('user console log', user);
 
-  const onSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      Alert.alert('Error signing out', error.message);
-    }
-  };
+  //   const onSignOut = async () => {
+  //     const { error } = await supabase.auth.signOut();
+  //     if (error) {
+  //       Alert.alert('Error signing out', error.message);
+  //     }
+  //   };
 
   return (
     <ScreenWrapper bgColor='white'>
@@ -54,10 +53,10 @@ const Home = () => {
           </View>
         </View>
       </View>
-      <Button
+      {/* <Button
         title='Sign Out'
         onPress={onSignOut}
-      />
+      /> */}
     </ScreenWrapper>
   );
 };
