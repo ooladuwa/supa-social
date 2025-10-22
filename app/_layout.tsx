@@ -27,23 +27,39 @@ const MainLayout = () => {
   );
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((_event, session) => {
-      // console.log('session user', session?.user.id);
+    // Check initial auth state first
+    const checkAuthState = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
       if (session) {
-        // set auth
         setAuth(session.user);
-        // store user in async storage
-        updateUserData(session?.user, session?.user.email || '');
-        // move to home screen
+        updateUserData(session.user, session.user.email || '');
         router.replace('/main/home');
       } else {
-        // set auth to null
         setAuth(null);
-        // move to welcome screen
+        router.replace('/welcome');
+      }
+    };
+
+    checkAuthState();
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        setAuth(session.user);
+        updateUserData(session.user, session.user.email || '');
+        router.replace('/main/home');
+      } else {
+        setAuth(null);
         router.replace('/welcome');
       }
     });
+
+    return () => subscription.unsubscribe();
   }, [setAuth, updateUserData]);
 
   return <Stack screenOptions={{ headerShown: false }} />;

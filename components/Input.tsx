@@ -11,21 +11,21 @@ import {
 } from 'react-native';
 
 interface InputProps extends TextInputProps {
-  containerStyles?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
   placeholderTextColor?: string;
   icon?: React.ReactNode;
   inputRef?: React.RefObject<TextInput>;
 }
 
 const Input = ({
-  containerStyles,
+  containerStyle,
   placeholderTextColor,
   inputRef,
   icon,
   ...rest
 }: InputProps) => {
   return (
-    <View style={[styles.container, containerStyles && containerStyles]}>
+    <View style={[styles.container, containerStyle && containerStyle]}>
       {icon}
       <TextInput
         style={{ flex: 1 }}

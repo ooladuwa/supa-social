@@ -1,10 +1,10 @@
-import { User } from '@supabase/supabase-js';
+import { CustomUser } from '@/types/user';
 import { createContext, SetStateAction, useContext, useState } from 'react';
 
 interface AuthContextType {
-  user: User | null;
-  setAuth: (authUser: SetStateAction<User | null>) => void;
-  setUserData: (userData: User | null) => void;
+  user: CustomUser | null;
+  setAuth: (authUser: SetStateAction<CustomUser | null>) => void;
+  setUserData: (userData: CustomUser | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -14,13 +14,13 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<CustomUser | null>(null);
 
-  const setAuth = (authUser: SetStateAction<User | null>) => {
+  const setAuth = (authUser: SetStateAction<CustomUser | null>) => {
     setUser(authUser);
   };
 
-  const setUserData = (userData: User | null) => {
+  const setUserData = (userData: CustomUser | null) => {
     setUser(userData);
   };
 

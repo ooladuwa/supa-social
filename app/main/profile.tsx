@@ -6,7 +6,7 @@ import { theme } from '@/constants/theme';
 import { useAuth } from '@/contexts/AuthContext';
 import { hp, wp } from '@/helpers/common';
 import { supabase } from '@/lib/supabase';
-import { User } from '@supabase/supabase-js';
+import { CustomUser } from '@/types/user';
 import { Router, useRouter } from 'expo-router';
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -42,7 +42,7 @@ const Profile = () => {
   };
 
   interface UserHeaderProps {
-    user: User;
+    user: CustomUser;
     router: Router;
   }
 
@@ -70,13 +70,13 @@ const Profile = () => {
           <View style={{ gap: 15 }}>
             <View style={styles.avatarContainer}>
               <Avatar
-                uri={user?.image}
+                uri={user?.image || ''}
                 size={hp(12)}
                 rounded={theme.radius.xxl * 1.4}
               />
               <Pressable
                 style={styles.editIcon}
-                onPress={() => router.push('main/editProfile')}
+                onPress={() => router.push('/main/editProfile')}
               >
                 <Icon
                   name='edit'
@@ -88,8 +88,8 @@ const Profile = () => {
             </View>
             {/* username and address */}
             <View style={{ alignItems: 'center', gap: 4 }}>
-              <Text style={styles.username}>{user && user.name}</Text>
-              <Text style={styles.infoText}>{user && user.address}</Text>
+              <Text style={styles.username}>{user?.name}</Text>
+              <Text style={styles.infoText}>{user?.address}</Text>
             </View>
             {/* email, phone number, and bio */}
             <View style={{ gap: 10 }}>
@@ -99,9 +99,9 @@ const Profile = () => {
                   size={20}
                   color={theme.colors.textLight}
                 />
-                <Text style={styles.infoText}>{user && user.email}</Text>
+                <Text style={styles.infoText}>{user?.email}</Text>
               </View>
-              {user && user.phoneNumber && (
+              {user?.phoneNumber && (
                 <View style={styles.info}>
                   <Icon
                     name='call'
@@ -111,9 +111,7 @@ const Profile = () => {
                   <Text style={styles.infoText}>{user.phoneNumber}</Text>
                 </View>
               )}
-              {user && user.bio && (
-                <Text style={styles.infoText}>{user.bio}</Text>
-              )}
+              {user?.bio && <Text style={styles.infoText}>{user.bio}</Text>}
             </View>
           </View>
         </View>
@@ -124,7 +122,7 @@ const Profile = () => {
   return (
     <ScreenWrapper bgColor='white'>
       <UserHeader
-        user={user as User}
+        user={user as CustomUser}
         router={router}
       />
     </ScreenWrapper>
